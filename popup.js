@@ -1,3 +1,68 @@
+let v = "closed";
+document.addEventListener("DOMContentLoaded", () => {
+  const setTimeLimitButton = document.getElementById("setTimeLimitButton");
+  const timeLimitInputDiv = document.getElementById("timeLimitInput");
+  const saveTimeLimitButton = document.getElementById("saveTimeLimitButton");
+  const timeLimitInput = document.getElementById("timeLimit");
+
+  setTimeLimitButton.addEventListener("click", () => {
+    if (v === "closed") {
+      timeLimitInputDiv.style.display = "flex";
+      v = "open";
+    } else {
+      timeLimitInputDiv.style.display = "none";
+      v = "closed";
+    }
+  });
+});
+saveTimeLimitButton.addEventListener("click", () => {
+  const timeLimit = parseInt(timeLimitInput.value, 10);
+  if (isNaN(timeLimit) || timeLimit <= 0) {
+    alert("Please enter a valid time in minutes.");
+    return;
+  }
+
+  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+    const activeTab = tabs[0];
+    const url = new URL(activeTab.url);
+    const site = url.hostname;
+
+    let data = {};
+    data[site] = [timeLimit * 60, ""];
+    data["timeLimit"] = timeLimit * 60; // Save global time limit
+    chrome.storage.local.set(data, () => {
+      alert(`Time limit set for ${site}: ${timeLimit} minutes.`);
+      timeLimitInputDiv.style.display = "none";
+      timeLimitInput.value = "";
+    });
+  });
+});
+addRestrictedSiteButton.addEventListener("click", () => {
+  const site = restrictedSiteInput.value.trim();
+  if (!site) {
+    alert("Please enter a valid website.");
+    return;
+  }
+
+  chrome.storage.local.get("restrictedWebsites", function (result) {
+    let restrictedWebsites = result.restrictedWebsites || [];
+    if (!restrictedWebsites.includes(site)) {
+      restrictedWebsites.push(site);
+      chrome.storage.local.set(
+        { restrictedWebsites: restrictedWebsites },
+        () => {
+          alert(`Website ${site} added to restricted list.`);
+          restrictedSiteInput.value = "";
+        }
+      );
+    } else {
+      alert(`Website ${site} is already in the restricted list.`);
+    }
+  });
+});
+// Existing code to add site details
+// ...
+
 function addDetails(site, mins, colour, favIcon, total) {
   const analytics = document.getElementById("analytics");
 
@@ -38,6 +103,90 @@ function addDetails(site, mins, colour, favIcon, total) {
   div2.style.backgroundColor = colour;
   div2.style.width = `${(mins / total) * 100}%`;
   divParent.appendChild(div2);
+
+  const buttonBox = document.createElement("div");
+  buttonBox.classList.add("buttonBox");
+  buttonBox.style.display = "none"; // Initially hidden
+  buttonBox.style.position = "absolute";
+  // buttonBox.style.height = "100vh";
+  buttonBox.style.top = "55px";
+  buttonBox.style.backgroundColor = "#333";
+  buttonBox.style.border = "1px solid #ccc"; // You didn't specify changes to border style, so kept it.
+  buttonBox.style.padding = "6px 7px 6px 6px";
+  buttonBox.style.borderRadius = "6px";
+  buttonBox.style.boxShadow = "0 0 5px rgba(0,0,0,0.2)";
+  buttonBox.style.zIndex = "990";
+  buttonBox.style.marginBottom = "16px";
+  buttonBox.style.transition = "all 0.25s ease-in-out";
+
+  // Define common styles for child buttons
+  const buttonStyles = {
+    padding: "10px 20px",
+    margin: "5px",
+    // width : "40px",
+    backgroundColor: "#444",
+    color: "#fff",
+    border: "none",
+    borderRadius: "4px",
+    cursor: "pointer",
+    transition: "background-color 0.25s ease-in-out",
+    display: "flex-inline",
+    alignItems: "center",
+    justifyContent: "center",
+  };
+
+  // Function to apply styles to an element
+  function applyStyles(element, styles) {
+    for (let property in styles) {
+      element.style[property] = styles[property];
+    }
+  }
+
+  // Create and style buttons with icons and tooltips
+  const button1 = document.createElement("button");
+  applyStyles(button1, buttonStyles);
+  button1.title = "Restrict Site"; // Tooltip text
+  const icon1 = document.createElement("i");
+  icon1.className = "fas fa-ban"; // Font Awesome class for restriction icon
+  button1.appendChild(icon1);
+  buttonBox.appendChild(button1);
+
+  const button2 = document.createElement("button");
+  applyStyles(button2, buttonStyles);
+  button2.title = "Set Time Limit"; // Tooltip text
+  const icon2 = document.createElement("i");
+  icon2.className = "fas fa-clock"; // Font Awesome class for clock icon
+  button2.appendChild(icon2);
+  buttonBox.appendChild(button2);
+  let dis = "none";
+  const button3 = document.createElement("button");
+  applyStyles(button3, buttonStyles);
+  button3.title = "Dashboard"; // Tooltip text
+  const icon3 = document.createElement("i");
+  icon3.className = "fas fa-tachometer-alt"; // Font Awesome class for dashboard icon
+  button3.appendChild(icon3);
+  buttonBox.appendChild(button3);
+  button3.addEventListener("click", () => {
+    if (dis === "none") {
+      buttonBox.style.display = "block";
+      dis = "block";
+    } else {
+      buttonBox.style.display = "none";
+      dis = "none";
+    }
+  });
+
+  // Add the button box to the main div
+  mainDiv.appendChild(buttonBox);
+  mainDiv.addEventListener("click", () => {
+    if (dis === "none") {
+      buttonBox.style.display = "block";
+      dis = "block";
+    } else {
+      buttonBox.style.display = "none";
+      dis = "none";
+    }
+  });
 
   analytics.appendChild(mainDiv);
 }
@@ -135,7 +284,9 @@ chrome.storage.local.get(null, function (result) {
     if (mins < 10) mins = `0${mins}`;
     totalId.querySelector("p strong").innerText = hrs;
     totalId.querySelector("p:last-child strong").innerText = `${mins}`;
-
+    console.log("titles", titles);
+    console.log("time", time);
+    console.log("barColors", barColors);
     const siteChart = document.getElementById("siteChart");
     new Chart("siteChart", {
       type: "doughnut",

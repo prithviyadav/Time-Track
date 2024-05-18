@@ -1,165 +1,242 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
 
-*{
-    margin: 0;
+* {
+  margin: 0;
 }
 
-body{
-    background-color: #333;
-    color: white;
-    font-family: 'Roboto', sans-serif;
-    width: 320px;
-    min-height: 500px;
+body {
+  background-color: #333;
+  color: white;
+  font-family: "Roboto", sans-serif;
+  width: 320px;
+  min-height: 500px;
+  position: relative; /* Add this to position footer correctly */
 }
 
-header{
-    align-items: center;
-    display: flex;
-    font-weight: bold;
-    font-size: 1.1em;
-    margin: 5px;
-    user-select: none;
+header {
+  align-items: center;
+  display: flex;
+  font-weight: bold;
+  font-size: 1.1em;
+  margin: 5px;
+  user-select: none;
 }
-header img{
-    width: 25px;
-    margin: 0 5px;
-}
-
-
-#chart{
-    margin-top: 15px;
-    margin-bottom: 25px;
-    position: relative;
+header img {
+  width: 25px;
+  margin: 0 5px;
 }
 
-#timeUsage{
-    width: 68%;
-    margin-left: 16%;
-    margin-bottom: -220px;
+#chart {
+  margin-top: 15px;
+  margin-bottom: 25px;
+  position: relative;
 }
 
-#siteChart{
-    transition: all 0.25s ease-in-out;
+#timeUsage {
+  width: 68%;
+  margin-left: 16%;
+  margin-bottom: -220px;
 }
 
-#siteChart:hover{
-    transform: scale(1.03);
+#siteChart {
+  transition: all 0.25s ease-in-out;
 }
 
-
-#total{
-    font-size: 17px;
-    letter-spacing: 0.5px;
-    position: absolute;
-    top: 92px;
-    left: 134px;
+#siteChart:hover {
+  transform: scale(1.03);
+  z-index:10;
 }
 
-
-#details_head{
-    background: rgb(51,51,51);
-    background: linear-gradient(0deg, rgba(51,51,51,1) 0%, rgba(255,255,255,0.07) 100%);
-    border-radius: 8px;
-    font-weight: bold;
-    font-size: 1.3em;
-    letter-spacing: 0.8px;
-    padding: 10px 12px;
-    margin: 0 15px;
-    margin-bottom: -168px;
-    height: 180px;
+#total {
+  font-size: 17px;
+  letter-spacing: 0.5px;
+  position: absolute;
+  top: 92px;
+  left: 134px;
 }
 
-
-/* ANALYTICS Website details */
-#analytics{
-    height: 204px;
-    margin: 0 20px;
-    margin-bottom: 38px;
-    padding: 10px 15px 0px 15px;
-    overflow-y: scroll;
+#details_head {
+  background: rgb(51, 51, 51);
+  background: linear-gradient(
+    0deg,
+    rgba(51, 51, 51, 1) 0%,
+    rgba(255, 255, 255, 0.07) 100%
+  );
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1.3em;
+  letter-spacing: 0.8px;
+  padding: 10px 12px;
+  margin: 0 15px;
+  margin-bottom: -168px;
+  height: 180px;
 }
 
-#noData{
-    width: 100%;
-    margin-bottom: 12px;
+#analytics {
+  height: 204px;
+  margin: 0 20px;
+  margin-bottom: 38px;
+  padding: 10px 15px 0px 15px;
+  overflow-y: scroll;
 }
 
-.siteDetails{
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    padding: 12px 14px 12px 12px;
-    user-select: none;
-    margin-bottom: 16px;
-    transition: all 0.25s ease-in-out;
+#noData {
+  width: 100%;
+  margin-bottom: 12px;
 }
 
-.siteDetails:hover{
-    transform: scale(1.04);
+.siteDetails {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  padding: 12px 14px 12px 12px;
+  user-select: none;
+  margin-bottom: 16px;
+  transition: all 0.25s ease-in-out;
 }
 
-.favIcon{
-    width: 24px;
+.siteDetails:hover {
+  transform: scale(1.04);
 }
 
-.detailsParent{
-    width: 188px;
-    margin-left: 8px;
+.favIcon {
+  width: 24px;
 }
 
-.details{
-    display: flex;
-    font-size: 13px;
-    font-weight: 500;
-    justify-content: space-between;
+.detailsParent {
+  width: 188px;
+  margin-left: 8px;
 }
 
-.siteName{
-    display: flex;
-    align-items: center;
-    letter-spacing: 0.5px;
+.details {
+  display: flex;
+  font-size: 13px;
+  font-weight: 500;
+  justify-content: space-between;
 }
 
-.hourProgress{
-    height: 5px;
-    box-shadow: 0 0 2px rgb(240, 240, 240);
-    border-radius: 5px;
-    margin-top: 6px;
+.siteName {
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.5px;
 }
 
-
-
-footer{
-    background-color: rgba(255, 255, 255, 0.07);
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-    font-family: monospace;
-    font-size: 1.1em;
-    padding-top: 5px;
-    padding-bottom: 7px;
-    text-align: center;
-
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-}
-footer a{
-    color: cyan;
-    text-decoration: none;
-}
-footer a:hover{
-    text-shadow: 0 0 10px cyan;
+.hourProgress {
+  height: 5px;
+  box-shadow: 0 0 2px rgb(240, 240, 240);
+  border-radius: 5px;
+  margin-top: 6px;
 }
 
+footer {
+  background-color: rgba(51, 51, 51, 0.9);
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  font-family: monospace;
+  font-size: 1.1em;
+  padding-top: 5px;
+  padding-bottom: 7px;
+  text-align: center;
 
-/* Scroll Bar */
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000; /* Increased z-index to ensure footer is on top */
+}
+footer a {
+  color: cyan;
+  text-decoration: none;
+}
+footer a:hover {
+  text-shadow: 0 0 10px cyan;
+}
+
 ::-webkit-scrollbar {
-    width: 4px;
-  }
+  width: 4px;
+}
 
 ::-webkit-scrollbar-thumb {
-background: rgba(146, 146, 146, 0.2);
-border-radius: 8px;
+  background: rgba(146, 146, 146, 0.2);
+  border-radius: 8px;
+}
+
+/* Updated time limit section styles */
+#timeLimitSection {
+  margin: 20px 20px 70px 20px; /* Adjusted margin to prevent overlap with footer */
+  padding: 10px 15px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  position: relative;
+  z-index: 9; /* Ensure it is below the footer */
+}
+
+#timeLimitSection input[type="number"] {
+  border: 1px solid #ccc;
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 14px;
+  width: calc(100% - 18px); /* Adjust width for padding and border */
+  margin-bottom: 10px;
+}
+#timeLimitInput {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 15px;
+}
+
+#setTimeLimitButton {
+  background-color: #0074d9;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  color: white;
+  font-size: 14px;
+  width: 100%;
+}
+#saveTimeLimitButton {
+  width: 30%;
+  background-color: #0074d9;
+
+  border: none;
+  padding: 1px 2px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#timeLimitSection button:hover {
+  background-color: #005bb5;
+}
+#restrictedSiteSection {
+  margin: 20px 20px 70px 20px; /* Adjusted margin to match timeLimitSection */
+  padding: 10px 15px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  position: relative;
+  z-index: 9; /* Ensure it is below the footer */
+}
+
+#restrictedSiteSection input[type="text"] {
+  border: 1px solid #ccc;
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 14px;
+  width: calc(100% - 18px); /* Adjust width for padding and border */
+  margin-bottom: 10px;
+}
+
+#restrictedSiteSection button {
+  background-color: #0074d9;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  color: white;
+  font-size: 14px;
+  width: 100%;
+}
+
+#restrictedSiteSection button:hover {
+  background-color: #005bb5;
 }

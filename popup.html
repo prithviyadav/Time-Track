@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="popup.css" />
     <script src="Chart.js" type="module"></script>
     <script src="popup.js" type="module"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
   </head>
   <body>
     <header>
@@ -30,12 +32,34 @@
       <img src="noData.svg" alt="Empty logo" id="noData" />
     </div>
 
+    <div id="timeLimitSection">
+      <button id="setTimeLimitButton">Set Time Limit</button>
+      <div id="timeLimitInput" style="display: none">
+        <input
+          type="number"
+          id="timeLimit"
+          placeholder="Enter time in minutes"
+        />
+        <button id="saveTimeLimitButton">Save</button>
+      </div>
+    </div>
+    <div id="restrictedSiteSection">
+      <div>
+        <input
+          id="restrictedSiteInput"
+          type="text"
+          placeholder="Add restricted website"
+        />
+        <button id="addRestrictedSiteButton">Add</button>
+      </div>
+    </div>
+
     <footer>
       Developed with
       <span style="text-shadow: 0 0 10px rgb(249, 13, 112)">❤️</span> by
       <strong
         ><a href="https://www.linkedin.com/in/akash-singh8/" target="_blank"
-          >~Akash</a
+          >~Prithvi</a
         ></strong
       >
     </footer>
