@@ -17,17 +17,27 @@ header {
   align-items: center;
   display: flex;
   font-weight: bold;
-  font-size: 1.1em;
-  margin: 5px;
+  z-index: 10001; /* Increased z-index to ensure header is on top */
   user-select: none;
+  position:fixed;
+  height : 30px;
+  top:0;
+  left:0;
+  right:0;
+  background-color: black;
+  font-family: monospace;
+  font-size: 1.9em;
+  padding-top: 5px;
+  padding-bottom: 7px;
+
 }
 header img {
-  width: 25px;
-  margin: 0 5px;
+  width: 30px;
+  margin: 15px;
 }
 
 #chart {
-  margin-top: 15px;
+  margin-top: 55px;
   margin-bottom: 25px;
   position: relative;
 }
@@ -96,9 +106,9 @@ header img {
   transition: all 0.25s ease-in-out;
 }
 
-.siteDetails:hover {
+/* .siteDetails:hover {
   transform: scale(1.04);
-}
+} */
 
 .favIcon {
   width: 24px;
@@ -143,7 +153,7 @@ footer {
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 1000; /* Increased z-index to ensure footer is on top */
+  z-index: 10001; /* Increased z-index to ensure footer is on top */
 }
 footer a {
   color: cyan;
@@ -160,83 +170,4 @@ footer a:hover {
 ::-webkit-scrollbar-thumb {
   background: rgba(146, 146, 146, 0.2);
   border-radius: 8px;
-}
-
-/* Updated time limit section styles */
-#timeLimitSection {
-  margin: 20px 20px 70px 20px; /* Adjusted margin to prevent overlap with footer */
-  padding: 10px 15px;
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 6px;
-  position: relative;
-  z-index: 9; /* Ensure it is below the footer */
-}
-
-#timeLimitSection input[type="number"] {
-  border: 1px solid #ccc;
-  padding: 8px;
-  border-radius: 4px;
-  font-size: 14px;
-  width: calc(100% - 18px); /* Adjust width for padding and border */
-  margin-bottom: 10px;
-}
-#timeLimitInput {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 15px;
-}
-
-#setTimeLimitButton {
-  background-color: #0074d9;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
-  color: white;
-  font-size: 14px;
-  width: 100%;
-}
-#saveTimeLimitButton {
-  width: 30%;
-  background-color: #0074d9;
-
-  border: none;
-  padding: 1px 2px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-#timeLimitSection button:hover {
-  background-color: #005bb5;
-}
-#restrictedSiteSection {
-  margin: 20px 20px 70px 20px; /* Adjusted margin to match timeLimitSection */
-  padding: 10px 15px;
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 6px;
-  position: relative;
-  z-index: 9; /* Ensure it is below the footer */
-}
-
-#restrictedSiteSection input[type="text"] {
-  border: 1px solid #ccc;
-  padding: 8px;
-  border-radius: 4px;
-  font-size: 14px;
-  width: calc(100% - 18px); /* Adjust width for padding and border */
-  margin-bottom: 10px;
-}
-
-#restrictedSiteSection button {
-  background-color: #0074d9;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
-  color: white;
-  font-size: 14px;
-  width: 100%;
-}
-
-#restrictedSiteSection button:hover {
-  background-color: #005bb5;
 }

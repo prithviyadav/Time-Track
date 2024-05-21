@@ -1,23 +1,26 @@
 function restrictSite(site, senderTabId) {
-  chrome.storage.local.get([site, "timeLimit", "restrictedWebsites"], function (result) {
-    const siteData = result[site];
-    const timeLimit = result.timeLimit; // Global time limit in seconds
-    const restrictedWebsites = result.restrictedWebsites || [];
-    console.log(restrictedWebsites);
-    console.log(site);
-    // Check if the site is in the restricted websites list
-    if (restrictedWebsites.includes(site)) {
-      openRestrictedPopup(senderTabId);
-      return;
-    }
 
-    // If the site is not in the restricted list, proceed with the time limit check
-    if (siteData && siteData[0] > timeLimit) {
-      openBlockedPopup(senderTabId);
+  chrome.storage.local.get(
+    [site, "timeLimit", "restrictedWebsites"],
+    function (result) {
+
+      const siteData = result[site];
+      const restrictedWebsites = [];
+      // console.log(restrictedWebsites);
+      console.log(siteData[2]);
+      // Check if the site is in the restricted websites list
+      if (restrictedWebsites.includes(site)) {
+        openRestrictedPopup(senderTabId);
+        return;
+      }
+
+      // If the site is not in the restricted list, proceed with the time limit check
+      if (siteData && siteData[0] > siteData[2]) {
+        openBlockedPopup(senderTabId);
+      }
     }
-  });
+  );
 }
-
 function openBlockedPopup(senderTabId) {
   // Get the current window to calculate the center position for the pop-up
   chrome.windows.getCurrent(function (window) {
@@ -101,9 +104,10 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
           data[site] = [
             siteData[0] + (tabs.length ? Math.floor(11 / tabs.length) : 10),
             tab.favIconUrl,
+            99999999999,
           ];
         } else {
-          data[site] = [0, tab.favIconUrl];
+          data[site] = [0, tab.favIconUrl, 99999999999];
         }
         chrome.storage.local.set(data);
       });
